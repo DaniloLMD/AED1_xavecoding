@@ -9,7 +9,7 @@ LIB = ./lib
 all: _src clean_apps _apps
 
 run:
-	./bin/hw
+	$(BIN)/linked_list
 
 clean:
 	rm -rf $(BIN)/* $(OBJ)/* $(LIB)/*
@@ -17,13 +17,12 @@ clean_apps:
 	rm -rf $(BIN)/*
 
 _bin: _apps
-_apps: \
-	$(BIN)/hw \
+_apps: $(BIN)/linked_list
 
 _obj: _src
 _src: \
-	$(OBJ)/hw.o 
-	ar -rcs $(LIB)/libDanilo.a $(OBJ)/*.o
+	$(OBJ)/linked_list.o 
+	ar -rcs $(LIB)/libLinkedList.a $(OBJ)/*.o
 
 
 $(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h

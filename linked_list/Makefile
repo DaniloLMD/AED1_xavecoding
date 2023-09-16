@@ -24,6 +24,9 @@ _src: \
 	$(OBJ)/linked_list.o 
 	ar -rcs $(LIB)/libLinkedList.a $(OBJ)/*.o
 
+code:
+	code $(APPS)/linked_list.c $(SRC)/linked_list.c $(INCLUDE)/linked_list.h
+
 
 $(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
 	gcc -c $< -I $(INCLUDE) -o $@

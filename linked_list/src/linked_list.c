@@ -70,6 +70,46 @@ void LinkedList_addLast(LinkedList* L, int val){
     L->size++;
 }
 
+void LinkedList_addAt(LinkedList* L, int val, int index){
+    int i = 0;
+    SNode* new_node = SNode_create(val), *pos = L->begin, *pre = NULL;
+
+    //verificando se o index informado é valido
+    if(index < 0){
+        printf("ERROR in function 'LinkedList_addAt': index out of range - negative value\n");
+        exit(EXIT_FAILURE);
+    }
+    else if(index > L->size){
+        printf("ERROR in function 'LinkedList_addAt': index out of range - higher than list size\n");
+        exit(EXIT_FAILURE);   
+    }
+
+    while(1){
+        if(i == index){
+
+            //verificando se vai inserir no final da lista
+            if(index == L->size){
+                LinkedList_addLast(L, val);
+            }
+            
+            else{
+                new_node->next = pos;
+
+                if(index == 0) L->begin = new_node;
+                else pre->next = new_node;
+
+                L->size++;
+            }
+
+            return;
+        }
+        pre = pos;
+        pos = pos->next;
+        i++;
+    }
+
+}
+
 void LinkedList_removeFirstValue(LinkedList* L, int val){
 
     //pos = ponteiro da frente, pre = ponteiro de tras
@@ -138,18 +178,17 @@ void LinkedList_removeAllValues(LinkedList* L, int val){
             pos = pos->next;
         }
     }
-    printf("\n\n\n");
 }
 
 void LinkedList_removeAt(LinkedList* L, int i){
     int i_atual = 0;
     SNode *pos = L->begin, *pre = NULL;
 
+    //verificando se o index informado é valido
     if(i < 0){
-        printf("ERROR in function 'LinkedList_removeAt': index out of range - negative number\n");
+        printf("ERROR in function 'LinkedList_removeAt': index out of range - negative value\n");
         exit(EXIT_FAILURE);
     }
-
     else if(i >= L->size){
         printf("ERROR in function 'LinkedList_removeAt': index out of range - higher than list size\n");
         exit(EXIT_FAILURE);
@@ -186,6 +225,21 @@ void LinkedList_removeAt(LinkedList* L, int i){
 
 }
 
+void LinkedList_removeAll(LinkedList*L){
+    SNode *pre = NULL, *pos = L->begin;
+
+    while(pos != NULL){
+
+        free(pre);
+
+        pre = pos;
+        pos = pos->next;
+    }
+
+    L->begin = L->end = NULL;
+    L->size = 0;
+}
+
 char LinkedList_empty(LinkedList* L){
     return L->size == 0;
 }
@@ -208,10 +262,40 @@ int LinkedList_back(LinkedList* L){
     return p->val;
 }
 
+int LinkedList_at(LinkedList* L, int index){
+
+    if(LinkedList_empty(L)){
+        printf("ERROR in function 'LinkedList_at': list is empty\n");
+        exit(EXIT_FAILURE);
+    }
+    else if(index < 0){
+        printf("ERROR in function 'LinkedList_at: invalid index - negative value\n");
+        exit(EXIT_FAILURE);
+    }
+    else if(index >= L->size){
+        printf("ERROR in function 'LinkedList_at: invalid index - higher than list size\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int i = 0;
+    SNode* node_atual = L->begin;
+
+    while(1){
+
+        if(i == index){
+            return node_atual->val;
+        }
+
+        i++;
+        node_atual = node_atual->next;
+    }
+
+}
+
 
 void LinkedList_print(const LinkedList* L){
     SNode *p = L->begin;
-
+    //sleep(2);
     printf("L -> ");
 
     while(p != NULL){
@@ -222,15 +306,97 @@ void LinkedList_print(const LinkedList* L){
     }
     printf("NULL\n");
     printf("Tamanho: %lu\n", L->size);
-    printf("L->begin = %p\n", L->begin);
+    /*printf("L->begin = %p\n", L->begin);
     printf("L->end = %p\n", L->end);
     if(L->size >= 1){
         printf("First val = %d\n", L->begin->val);
         printf("Last val = %d\n", L->end->val);
     }
-    printf("\n");
+    printf("\n");*/
 }
 
 unsigned long int LinkedList_size(const LinkedList* L){
     return L->size;
+}
+
+void LinkedList_reverse(LinkedList* L){
+    SNode* tras = NULL, *meio = L->begin, *frente = NULL;
+
+    if(LinkedList_empty(L)){
+        printf("ERROR in function 'LinkedList_reverse': list is empty\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if(L->size > 1) frente = L->begin->next;
+
+    while(meio != NULL){
+
+        meio->next = tras;
+
+        tras = meio;
+        meio = frente;
+        if(frente != NULL) frente = frente->next;
+    }
+
+    //trocando o fim e o inicio da lista
+    tras = L->begin;
+    L->begin = L->end;
+    L->end = tras;
+
+}
+
+void LinkedList_concat(LinkedList* L1, LinkedList* L2){
+    if(LinkedList_empty(L2)) return;
+    if(LinkedList_empty(L1)){
+        L1 = L2;
+    }
+    else{
+        L1->end->next = L2->begin;
+    }
+    L1->end = L2->end;
+    L1->size += L2->size;
+}
+
+//retorna o indice do maior valor de umam lista
+int LinkedList_max(LinkedList* L){
+
+    if(LinkedList_empty(L)){
+        printf("ERROR in function 'LinkedList_addAt': list is empty\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int max = L->begin->val, index_max = 0, index_atual = 0;
+    SNode* node_atual = L->begin;
+
+    while(node_atual != NULL){
+        if(node_atual->val > max){
+            max = node_atual->val;
+            index_max = index_atual;
+        }
+
+        node_atual = node_atual->next;
+        index_atual++;
+    }
+
+    return index_max;
+
+} 
+void LinkedList_Sort(LinkedList** L_adress){
+    LinkedList* L = *L_adress;
+
+    //verificando se a lista esta vazia
+    if(L->size <= 1) return;
+
+    LinkedList* L_ordenada = LinkedList_create();
+    int index_max;
+
+    while(L->size > 0){
+        index_max = LinkedList_max(L);
+        LinkedList_addFirst(L_ordenada, LinkedList_at(L, index_max));
+        LinkedList_removeAt(L, index_max);
+    }
+
+    LinkedList_destroy(L_adress);
+
+    *L_adress = L_ordenada;
 }

@@ -6,26 +6,18 @@ int main(){
 
     LinkedList* L = LinkedList_create();
 
-    LinkedList_addLast(L, 1);
-    LinkedList_addLast(L, 2);
-    LinkedList_addLast(L, 3);
-    LinkedList_addLast(L, 4);
-    LinkedList_addLast(L, 4);
-    LinkedList_addLast(L, 4);
-    LinkedList_addLast(L, 5);
-    LinkedList_addLast(L, 4);
-    LinkedList_addLast(L, 5);
-    LinkedList_addLast(L, 4);
-    LinkedList_addLast(L, 4);
-
+    
+    for(int c = 1 ; c <= 1000; c++)
+{ 
+    LinkedList_addFirst(L, c);
+}
+    printf("ANTES: "); 
     LinkedList_print(L);
 
-    LinkedList_removeAllValues(L, 4);
-    LinkedList_removeFirstValue(L, 5);
-    LinkedList_removeFirstValue(L, 5);
-    LinkedList_removeAllValues(L, 80);
-    LinkedList_removeAt(L, 2);
+    LinkedList_Sort(&L);
+    printf("\n\n\n");
 
+    printf("DEPOIS: ");
     LinkedList_print(L);
 
     LinkedList_destroy(&L); 

@@ -21,6 +21,8 @@ void LinkedList_addFirst(LinkedList* L, int val);
 void LinkedList_addLast(LinkedList* L, int val);
 //adiciona na lista "L" o valor "val" na posicao "index"
 void LinkedList_addAt(LinkedList* L, int val, int index);
+//insere o elemento na lista de maneira ordenada
+void LinkedList_addSorted(LinkedList* L, int val);
 
 //destroi o primeiro valor VAL encontrado na lista L
 void LinkedList_removeFirstValue(LinkedList* L, int val);
@@ -58,10 +60,3 @@ void LinkedList_concat(LinkedList* L1, LinkedList* L2);
 void LinkedList_Sort(LinkedList** L_adress);
 
 #endif
-
-
-/*
-        FALTAM:
-    -clonar uma lista
-    -inserção ordenada
-*/

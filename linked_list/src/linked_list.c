@@ -35,12 +35,12 @@ LinkedList* LinkedList_create(void){
 }
 
 void LinkedList_destroy(LinkedList** L){
-    SNode *pos1 = (*L)->begin, *pos2 = NULL;
+    SNode *pos = (*L)->begin, *pre = NULL;
 
-    while(pos1 != NULL){
-        pos2 = pos1->next;
-        free(pos1);
-        pos1 = pos2;
+    while(pos != NULL){
+        pre = pos;
+        pos = pos->next;
+        free(pre);
     }
     free(*L);
     *L = NULL;
@@ -108,6 +108,31 @@ void LinkedList_addAt(LinkedList* L, int val, int index){
         i++;
     }
 
+}
+
+void LinkedList_addSorted(LinkedList* L, int val){
+
+    if(LinkedList_empty(L)){
+        LinkedList_addFirst(L, val);
+        return;
+    }
+
+    int i_atual = 0;
+    SNode* node_atual = L->begin, *prev = NULL;
+
+    while(node_atual != NULL){
+
+        if(node_atual->val > val){
+            LinkedList_addAt(L, val, i_atual);
+            return;
+        }
+        
+        prev = node_atual;
+        node_atual = node_atual->next;
+        i_atual++;
+    }
+
+    LinkedList_addLast(L, val);
 }
 
 void LinkedList_removeFirstValue(LinkedList* L, int val){
@@ -265,8 +290,8 @@ int LinkedList_back(LinkedList* L){
 int LinkedList_at(LinkedList* L, int index){
 
     if(LinkedList_empty(L)){
-        printf("ERROR in function 'LinkedList_at': list is empty\n");
-        exit(EXIT_FAILURE);
+            printf("ERROR in function 'LinkedList_at': list is empty\n");
+            exit(EXIT_FAILURE);
     }
     else if(index < 0){
         printf("ERROR in function 'LinkedList_at: invalid index - negative value\n");
@@ -294,6 +319,13 @@ int LinkedList_at(LinkedList* L, int index){
 
 
 void LinkedList_print(const LinkedList* L){
+
+    if(L == NULL){
+        printf("ERROR in function 'LinkedList_print': list does not exist\n");
+        printf("List = NULL. Use LinkedList_create() to initialize\n");
+        exit(EXIT_FAILURE);
+    }
+
     SNode *p = L->begin;
     //sleep(2);
     printf("L -> ");
@@ -306,13 +338,13 @@ void LinkedList_print(const LinkedList* L){
     }
     printf("NULL\n");
     printf("Tamanho: %lu\n", L->size);
-    /*printf("L->begin = %p\n", L->begin);
+    printf("L->begin = %p\n", L->begin);
     printf("L->end = %p\n", L->end);
     if(L->size >= 1){
         printf("First val = %d\n", L->begin->val);
         printf("Last val = %d\n", L->end->val);
     }
-    printf("\n");*/
+    printf("\n");
 }
 
 unsigned long int LinkedList_size(const LinkedList* L){

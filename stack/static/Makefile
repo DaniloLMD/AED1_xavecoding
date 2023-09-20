@@ -8,8 +8,8 @@ LIB = ./lib
 
 all: _src clean_apps _apps
 
-run:
-	$(BIN)/linked_list
+teste:
+	$(BIN)/teste
 
 clean:
 	rm -rf $(BIN)/* $(OBJ)/* $(LIB)/*
@@ -17,15 +17,15 @@ clean_apps:
 	rm -rf $(BIN)/*
 
 _bin: _apps
-_apps: $(BIN)/linked_list
+_apps: $(BIN)/teste
 
 _obj: _src
 _src: \
-	$(OBJ)/linked_list.o 
-	ar -rcs $(LIB)/libLinkedList.a $(OBJ)/*.o
+	$(OBJ)/static_stack.o 
+	ar -rcs $(LIB)/libStaticStack.a $(OBJ)/*.o
 
 code:
-	code $(APPS)/linked_list.c $(SRC)/linked_list.c $(INCLUDE)/linked_list.h
+	code $(APPS)/teste.c $(SRC)/static_stack.c $(INCLUDE)/static_stack.h
 
 
 $(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h

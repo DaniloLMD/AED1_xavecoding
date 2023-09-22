@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//dnode = doubly node
 struct _stack_node{
     int val; 
     struct _stack_node* prev;

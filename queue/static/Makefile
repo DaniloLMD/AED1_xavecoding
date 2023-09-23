@@ -21,11 +21,11 @@ _apps: $(BIN)/teste
 
 _obj: _src
 _src: \
-	$(OBJ)/linked_list.o 
-	ar -rcs $(LIB)/libLinkedList.a $(OBJ)/*.o
+	$(OBJ)/static_queue.o 
+	ar -rcs $(LIB)/libStaticQueue.a $(OBJ)/*.o
 
 code:
-	code $(APPS)/teste $(SRC)/doubly_linked_list.c $(INCLUDE)/doubly_linked_list.h
+	code $(APPS)/teste.c $(SRC)/static_queue.c $(INCLUDE)/static_queue.h
 
 
 $(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h

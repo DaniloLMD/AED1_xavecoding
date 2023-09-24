@@ -21,11 +21,11 @@ _apps: $(BIN)/teste
 
 _obj: _src
 _src: \
-	$(OBJ)/linked_list.o 
-	ar -rcs $(LIB)/libLinkedList.a $(OBJ)/*.o
+	$(OBJ)/doubly_linked_list.o 
+	ar -rcs $(LIB)/libDoublyLinkedList.a $(OBJ)/*.o
 
 code:
-	code $(APPS)/teste $(SRC)/doubly_linked_list.c $(INCLUDE)/doubly_linked_list.h
+	code $(APPS)/teste.c $(SRC)/doubly_linked_list.c $(INCLUDE)/doubly_linked_list.h
 
 
 $(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h

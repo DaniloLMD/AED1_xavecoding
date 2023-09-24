@@ -393,7 +393,7 @@ void SimpleLinkedList_concat(LinkedList* L1, LinkedList* L2){
 int SimpleLinkedList_max(LinkedList* L){
 
     if(SimpleLinkedList_empty(L)){
-        printf("ERROR in function 'SimpleLinkedList_addAt': list is empty\n");
+        printf("ERROR in function 'SimpleLinkedList_max': list is empty\n");
         exit(EXIT_FAILURE);
     }
 

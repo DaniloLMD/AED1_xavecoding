@@ -10,7 +10,7 @@ int main(){
     SimpleLinkedList_addSorted(L, 2);
     SimpleLinkedList_addSorted(L, 3);
     SimpleLinkedList_print(L);
-    SimpleLinkedList_removeAt(L, 0);
+    SimpleLinkedList_Sort(&L);
     SimpleLinkedList_print(L);
 
     SimpleLinkedList_destroy(&L); //destroi a lista

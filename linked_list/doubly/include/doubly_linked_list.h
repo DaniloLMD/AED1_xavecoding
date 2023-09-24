@@ -52,17 +52,9 @@ unsigned long int LinkedList_size(const LinkedList* L);
 void LinkedList_reverse(LinkedList* L);
 
 //concatena os elementos de L2 em L1
-void LinkedList_concat(LinkedList* L1, LinkedList* L2);
+void LinkedList_concat(LinkedList* L1_ref, LinkedList* L2_ref);
 
 //ordenando lista por um algoritmo da minha cabeça
 void LinkedList_Sort(LinkedList** L_adress);
 
-void SimpleLinkedList_print(const LinkedList* L);
-
 #endif
-
-/*
-    FALTAM:
-    - Testar
-    - Sort
-*/

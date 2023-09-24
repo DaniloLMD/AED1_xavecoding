@@ -4,57 +4,30 @@
 int main(){
     
     LinkedList* L = LinkedList_create();
+    LinkedList* L2 = LinkedList_create();
 
-    printf("PRIMEIRO PRINT\n");
-    //LinkedList_print(L);
-    LinkedList_print(L);
-    printf("\n\n");
-
-    printf("ADICIONEI 1 (FIRST) \n");
     LinkedList_addFirst(L, 1);
+    LinkedList_addFirst(L, 2);
+    LinkedList_addFirst(L2, 4);
+    LinkedList_addFirst(L2, 5);
+    LinkedList_addAt(L, 3 , 0);
+    //LinkedList_addLast(L, 0);
+
+    printf("Antes do concat\n");
     LinkedList_print(L);
-    //LinkedList_print(L);
+    LinkedList_print(L2);
     printf("\n\n");
 
-    printf("ADICIONEI 3 (LAST)\n");
-    LinkedList_addLast(L, 3);
-    LinkedList_print(L);;
-    //LinkedList_print(L);
-    printf("\n\n");
-
-    printf("ADICIONEI 2 (SORTED) \n");
-    LinkedList_addSorted(L, 2);
-    LinkedList_print(L);
-    //LinkedList_print(L);
-    printf("\n\n");
-
-    printf("INVERTI\n");
-    LinkedList_reverse(L);
+    printf("#   Ultimo val: %d\n", LinkedList_back(L)), 
+    LinkedList_concat(L, L2);
+    printf("Depois do concat\n");
+    printf("#   Ultimo val: %d\n", LinkedList_back(L));
     LinkedList_print(L);
     printf("\n\n");
 
-    printf("ADICIONEI 4 (AT [0])\n");
-    LinkedList_addAt(L, 4, 0);
+    LinkedList_Sort(&L);
+    printf("Depois do sort\n");
     LinkedList_print(L);
-    printf("\n\n");
-    
-    LinkedList_addLast(L, 2);
-    LinkedList_addLast(L, 2);
-    LinkedList_addLast(L, 2);
-    LinkedList_addLast(L, 2);
-    printf("ADICIONEI MUITOS 2\n"); 
-    LinkedList_print(L);
-    printf("\n\n");
-
-   printf("REMOVI TODOS OS 2\n");
-   LinkedList_removeAllValues(L, 2);
-   LinkedList_print(L);
-   printf("\n\n");
-
-   printf("REMOVI TODOS OS VALORES\n");
-   LinkedList_removeAll(L);
-   LinkedList_print(L);
-   printf("\n\n");
 
 
     LinkedList_destroy(&L);

@@ -240,11 +240,20 @@ void LinkedList_removeAt(LinkedList* L, unsigned long int i){
             //atualizando o inicio da lista
             if(node_atual == L->begin){
                 L->begin = L->begin->next;
+
+                if(L->begin != NULL){
+                    L->begin->prev = NULL;
+                }
             }
 
             //atualizando o fim da lista
             if(node_atual == L->end){
                 L->end = L->end->prev;
+
+                if(L->end != NULL){
+                    L->end->next = NULL;
+                }
+
             }
             //atualizando o meio da lista e fazendo a verificacao novamente de que nao esta no inicio
             else if (i_atual != 0){
@@ -389,10 +398,11 @@ void LinkedList_reverse(LinkedList* L){
 void LinkedList_concat(LinkedList* L1, LinkedList* L2){
 
     if(LinkedList_empty(L1)){
-        LinkedList_destroy(&L1);
         L1 = L2;
     }
+
     else if(LinkedList_empty(L2)) return;
+
     else{
         L1->end->next = L2->begin;
         L2->begin->prev = L1->end;
@@ -401,4 +411,40 @@ void LinkedList_concat(LinkedList* L1, LinkedList* L2){
     }
 }
 
-void LinkedList_Sort(LinkedList** L_adress);
+void LinkedList_Sort(LinkedList** L_adress){
+
+    LinkedList*L = *L_adress;
+    //tratando casos da lista estar vazia
+    if(LinkedList_empty(L)) return;
+
+    LinkedList* L_sorted = LinkedList_create();
+
+    DNode* node_atual;
+    int i_atual, i_maior, maior_val;
+
+    while(L->size > 0){
+
+        maior_val = L->begin->val;
+        i_maior = 0;
+
+        node_atual = L->begin->next;
+        i_atual = 1;
+
+        while(node_atual != NULL){
+
+            if(node_atual->val > maior_val){
+                maior_val = node_atual->val;
+                i_maior = i_atual;
+            }
+
+            node_atual = node_atual->next;
+            i_atual++;
+        }
+
+        LinkedList_addFirst(L_sorted, maior_val);
+        LinkedList_removeAt(L, i_maior);
+    }
+
+    free(L);
+    *L_adress = L_sorted;
+}

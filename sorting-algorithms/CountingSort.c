@@ -46,17 +46,18 @@ void CountingSort(int** array_adress, int size){
 
 int main(){
     int *array;
-    int size = 10000000;
+    int size = 1e8;
 
     array = (int*) malloc(size * sizeof(int));
 
+    printf("Ordenando %d elementos\n", size);   
     int i2=0;
     for(int i = size; i > 0; i--){
         array[i2++] = i;
     }
 
     CountingSort(&array, size);
-    printf("Array = "); print_array(array, size);
-
+    //printf("Array = "); print_array(array, size);
+    free(array);
     return 0;
 }

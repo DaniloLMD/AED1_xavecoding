@@ -6,6 +6,8 @@ SRC = ./src
 BIN = ./bin
 LIB = ./lib
 
+MULTIPLE_FLAGS= "-Wl,--allow-multiple-definition"
+
 all: _src clean_apps _apps
 
 

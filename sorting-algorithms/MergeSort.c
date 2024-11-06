@@ -30,7 +30,6 @@ void merge(int* array, int inicio, int meio, int fim){
         i_array++;
     }
 
-
     i_array = inicio;
     while(i_array <= fim){
 
@@ -79,6 +78,7 @@ int main(){
 
     printf("Array: "); printaArray(array, array_size);
 
+    free(array); 
 
     return 0;
 }
